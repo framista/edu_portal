@@ -40,10 +40,27 @@ router.post('/', async (req, res) => {
     .send(_.pick(student, ['_id', 'firstname', 'lastname', 'index']));
 });
 
-router.put('/:id', auth, async (req, res) => {
+router.put('/tasks', auth, async (req, res) => {
   console.log(req.body.tasks);
   const student = await Student.findByIdAndUpdate(req.user._id, {
     tasks: req.body.tasks,
+  });
+  if (!student) return res.status(404).send('The student was not found');
+  res.send(student);
+});
+
+router.put('/tests', auth, async (req, res) => {
+  const { test, taskNumber } = req.body;
+  const studentSelected = await Student.findById(req.user._id).select(
+    '-password'
+  );
+  const { tests, tasks } = studentSelected;
+  tests[taskNumber - 1].tasks = test;
+  tasks[taskNumber - 1] = 2;
+
+  const student = await Student.findByIdAndUpdate(req.user._id, {
+    tests: tests,
+    tasks,
   });
   if (!student) return res.status(404).send('The student was not found');
   res.send(student);

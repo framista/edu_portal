@@ -22,7 +22,20 @@ const studentSchema = new mongoose.Schema({
   },
   tasks: {
     type: [Number],
-    default: [0, 0, 0, 0],
+    default: [0, 0, 0, 0], // 0 - don't watch video // 1 - can do test  // 2 - test done
+  },
+  tests: {
+    type: [],
+    default: [
+      { test: '1', tasks: [] },
+      { test: '2', tasks: [] },
+      { test: '3', tasks: [] },
+      { test: '4', tasks: [] },
+    ],
+  },
+  raport: {
+    type: Boolean,
+    default: false,
   },
 });
 
