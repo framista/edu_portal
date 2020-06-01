@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const auth = require('./routes/auth');
 const students = require('./routes/students');
 const tests = require('./routes/tests');
+const files = require('./routes/files');
+const fileUpload = require('express-fileupload');
 
 // export pwrLab_jwtPrivateKey=myKey
 
@@ -31,10 +33,13 @@ app.use(
     extended: false,
   })
 );
+
+app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/api/students', students);
 app.use('/api/tests', tests);
+app.use('/api/files', files);
 app.use('/api/auth', auth);
 
 const PORT = process.env.PORT || 5000;

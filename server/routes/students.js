@@ -41,7 +41,6 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/tasks', auth, async (req, res) => {
-  console.log(req.body.tasks);
   const student = await Student.findByIdAndUpdate(req.user._id, {
     tasks: req.body.tasks,
   });
