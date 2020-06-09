@@ -11,15 +11,13 @@ const tests = require('./routes/tests');
 const files = require('./routes/files');
 const fileUpload = require('express-fileupload');
 
-// export pwrLab_jwtPrivateKey=myKey
-
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
   process.exit(1);
 }
 
 mongoose
-  .connect('mongodb://localhost/pwrLab', {
+  .connect(process.env.EDU_DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -42,6 +40,6 @@ app.use('/api/tests', tests);
 app.use('/api/files', files);
 app.use('/api/auth', auth);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.EDU_PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
