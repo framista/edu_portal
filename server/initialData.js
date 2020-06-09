@@ -1,6 +1,6 @@
 const { Test } = require('./models/test');
 const bcrypt = require('bcryptjs');
-const { Student } = require('../models/student');
+const { Student } = require('./models/student');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
@@ -25,9 +25,12 @@ const dataCreate = async () => {
     console.log('err');
   }
 
-  let student = new Student(
-    _.pick(req.body, ['Paweł', 'Nowak', 'pawel123', '179081'])
-  );
+  let student = new Student({
+    firstname: 'Pawel',
+    lastname: 'Nowak',
+    password: 'pawel123',
+    index: '179080',
+  });
   const salt = await bcrypt.genSalt(10);
   student.password = await bcrypt.hash(student.password, salt);
   await student.save();
