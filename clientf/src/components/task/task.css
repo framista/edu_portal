@@ -1,0 +1,17 @@
+.container {
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  margin: 0 auto;
+}
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  margin: 0 auto;
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

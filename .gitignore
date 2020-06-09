@@ -1,0 +1,4 @@
+node_modules/
+'mongodb://localhost/pwrLab'
+ export pwrLab_jwtPrivateKey=myKey
+client1k/
