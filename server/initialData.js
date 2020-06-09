@@ -2,6 +2,7 @@ const { Test } = require('./models/test');
 const bcrypt = require('bcryptjs');
 const { Student } = require('../models/student');
 const _ = require('lodash');
+const mongoose = require('mongoose');
 
 mongoose
   .connect(process.env.EDU_DB, {
