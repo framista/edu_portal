@@ -26,6 +26,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log("Logowanie");
+  console.log(req.body);
   let student = await Student.findOne({ index: req.body.index });
   if (student) return res.status(400).send('Student already registered.');
   student = new Student(

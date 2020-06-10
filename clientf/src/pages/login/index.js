@@ -42,7 +42,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const token = await axios.post('http://localhost:5000/api/auth', data);
+      const token = await axios.post('http://amalus.no-ip.org:5000/api/auth', data);
       localStorage.setItem('key-jwt-pwr', token.data);
       const urlSelected =
         localStorage.getItem('selectedSite') || 'http://localhost:3000/task1';

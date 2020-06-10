@@ -90,7 +90,7 @@ export default function Raport() {
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/files',
+        'http://amalus.no-ip.org:5000/api/files',
         formData,
         {
           headers: {

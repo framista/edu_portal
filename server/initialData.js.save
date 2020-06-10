@@ -15,26 +15,25 @@ mongoose
 
 const dataCreate = async () => {
   const test = new Test({
+    taskNumber: 1 const test = new Test({
     taskNumber: 1,
-    question: 'Wyjaśnij zasadę stałej objętości',
+    question: 'Wymień i opisz metody walcowania',
   });
-  try {
+ try {
     let response = await test.save();
     console.log('saved');
   } catch (err) {
     console.log('err');
   }
- const test1 = new Test({
-    taskNumber: 1,
-    question: 'Wyjaśnij czym jest kąt chwytu',
+,
+    question: 'Wymień i opisz metody walcowania',
   });
-  try {
-    let response = await test1.save();
+ try {
+    let response = await test.save();
     console.log('saved');
   } catch (err) {
     console.log('err');
   }
 
-};
-
+}
 dataCreate();
