@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
 
 import {
   FormGroup,
@@ -18,7 +19,7 @@ import AlertDialog from '../../components/modal';
 import './login.css';
 
 const Login = () => {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const [values, setValues] = React.useState({
     index: '',
@@ -42,11 +43,14 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const token = await axios.post('http://amalus.no-ip.org:5000/api/auth', data);
+      const token = await axios.post(
+        'http://amalus.no-ip.org:5000/api/auth',
+        data
+      );
       localStorage.setItem('key-jwt-pwr', token.data);
-      const urlSelected =
-        localStorage.getItem('selectedSite') || 'http://localhost:3000/task1';
-      window.location.replace(urlSelected);
+      const urlSelected = localStorage.getItem('selectedSite') || '';
+      console.log(urlSelected);
+      // window.location.replace(urlSelected);
     } catch (err) {
       console.log(err);
       setErrorModal(err);
@@ -130,7 +134,7 @@ const Login = () => {
         <AlertDialog
           openModal={true}
           title="Błąd logowania"
-          body="Podano nieprawidłowy index lub hasło"
+          body="Podano nieprawidłowy indeks lub hasło"
           closeModal={handleError}
         ></AlertDialog>
       )}

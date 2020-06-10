@@ -14,6 +14,10 @@ export const Sidebar = () => {
   };
   return (
     <Menu>
+      <a className="menu-item" href="/">
+        Home
+      </a>
+
       <a className="menu-item" href="/task1">
         Ćwiczenie 1
       </a>

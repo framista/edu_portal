@@ -6,13 +6,18 @@ body {
 .bm-item {
   display: inline-block;
   text-decoration: none;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
   color: white;
   transition: color 0.2s;
   font-weight: 600;
-  font-size: 2em;
+  font-size: 30px;
 }
-
+.bm-item:first-child {
+  margin-top: 20px;
+}
+.bm-item:last-child {
+  margin-bottom: 20px;
+}
 .bm-item:hover {
   color: #3b0d15;
   text-decoration: none;
@@ -31,8 +36,8 @@ body {
 }
 
 .bm-cross-button {
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
 }
 
 .bm-cross {
@@ -41,7 +46,7 @@ body {
 
 .bm-menu {
   background: royalblue;
-  padding: 2.5em 1.5em 0;
+  padding: 1em 20px 0;
   font-size: 16px;
 }
 
@@ -51,6 +56,7 @@ body {
 
 .bm-item-list {
   color: #b8b7ad;
+  max-height: 600px;
 }
 
 .bm-overlay {

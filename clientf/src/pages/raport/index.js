@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   FormControl,
-  InputLabel,
   Input,
   FormHelperText,
   Button,
@@ -89,24 +88,20 @@ export default function Raport() {
     formData.append('file', selectedFile);
 
     try {
-      const res = await axios.post(
-        'http://amalus.no-ip.org:5000/api/files',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'x-auth-token': localStorage.getItem('key-jwt-pwr'),
-          },
-          onUploadProgress: (progressEvent) => {
-            setLoaded(
-              parseInt(
-                Math.round((progressEvent.loaded * 100) / progressEvent.total)
-              )
-            );
-            setTimeout(() => setLoaded(0), 10000);
-          },
-        }
-      );
+      await axios.post('http://amalus.no-ip.org:5000/api/files', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'x-auth-token': localStorage.getItem('key-jwt-pwr'),
+        },
+        onUploadProgress: (progressEvent) => {
+          setLoaded(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+          setTimeout(() => setLoaded(0), 10000);
+        },
+      });
       setSuccess('Poprawnie przesłano plik');
       setTimeout(() => setSuccess(''), 10000);
     } catch (err) {
