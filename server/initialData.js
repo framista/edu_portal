@@ -24,7 +24,7 @@ const dataCreate = async () => {
   } catch (err) {
     console.log('err');
   }
- const test1 = new Test({
+  const test1 = new Test({
     taskNumber: 1,
     question: 'Wyjaśnij czym jest kąt chwytu',
   });
@@ -35,6 +35,15 @@ const dataCreate = async () => {
     console.log('err');
   }
 
+  let student = new Student({
+    firstname: 'Adrianna',
+    lastname: 'Nowak',
+    password: 'ada123',
+    index: '179080',
+  });
+  const salt = await bcrypt.genSalt(10);
+  student.password = await bcrypt.hash(student.password, salt);
+  await student.save();
 };
 
 dataCreate();

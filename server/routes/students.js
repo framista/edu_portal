@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 
 router.get('/me', auth, async (req, res) => {
   const student = await Student.findById(req.user._id).select('-password');
@@ -26,7 +27,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log("Logowanie");
+  console.log('Logowanie');
   console.log(req.body);
   let student = await Student.findOne({ index: req.body.index });
   if (student) return res.status(400).send('Student already registered.');
@@ -64,6 +65,34 @@ router.put('/tests', auth, async (req, res) => {
     tasks,
   });
   if (!student) return res.status(404).send('The student was not found');
+
+  let transporter = nodemailer.createTransport({
+    host: 'mail.pwr.wroc.pl',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.EDU_USER,
+      pass: process.env.EDU_PASS,
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: '"mgr Paweł Jabłoński" <pawel.jablonski@pwr.edu.pl>',
+    to: `${student.index}@student.pwr.edu.pl`,
+    subject: `Techniki wytwarzania - obróbka plastyczna - Ćwiczenie ${taskNumber}`,
+    text: `
+      Dziękuje za wykonanie zadań z kartkówki. Twoje odpowiedzi to:
+      
+      ${test[0].question}
+      ${test[0].answer}
+      ${test[1].question}
+      ${test[1].answer}
+
+      Pozdrawiam,
+      Paweł Jabłoński
+    `,
+  });
+  console.log('Message sent: %s', info.messageId);
   res.send(student);
 });
 
