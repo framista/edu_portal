@@ -81,7 +81,6 @@ export default function Task(props) {
           question: q,
           answer: answers[index],
         }));
-        console.log(test);
         await api.updateStudentTests({ test, taskNumber });
         setTestBtn(true);
         setTestDone(true);
