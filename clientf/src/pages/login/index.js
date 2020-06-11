@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { Redirect } from 'react-router-dom';
 
 import {
   FormGroup,
@@ -48,9 +47,7 @@ const Login = () => {
         data
       );
       localStorage.setItem('key-jwt-pwr', token.data);
-      const urlSelected = localStorage.getItem('selectedSite') || '';
-      console.log(urlSelected);
-      // window.location.replace(urlSelected);
+      window.location.replace('/');
     } catch (err) {
       console.log(err);
       setErrorModal(err);

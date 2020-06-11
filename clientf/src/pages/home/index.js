@@ -27,24 +27,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function Home(props) {
   const classes = useStyles();
   const [tasks, setTasks] = React.useState([]);
+  const [raport, setRaport] = React.useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
       const result = await api.getStudentById();
       const student = result.data;
       setTasks([...student.tasks]);
+      setRaport(student.raport);
     };
     fetchData();
   }, []);
-  console.log(tasks);
 
   return (
     <div className={classes.root}>
       <Typography color="textSecondary" variant="h1" className={classes.h1}>
-        Techniki wytwarzania - obróbka plastyczna chyba
+        Techniki wytwarzania - obróbka plastyczna
       </Typography>
       <List className={classes.list}>
         {tasks.map((task, index) => {
@@ -53,7 +54,7 @@ export default function Home() {
               key={index}
               dense
               button
-              onClick={() => console.log(index)}
+              onClick={() => props.history.push(`/task${index + 1}`)}
             >
               <ListItemText primary={`Ćwiczenie ${index + 1}`}></ListItemText>
               <Checkbox
@@ -64,6 +65,15 @@ export default function Home() {
             </ListItem>
           );
         })}
+        <ListItem
+          key={10}
+          dense
+          button
+          onClick={() => props.history.push(`/raport`)}
+        >
+          <ListItemText primary={'Sprawozdanie'}></ListItemText>
+          <Checkbox edge="end" color="primary" checked={raport}></Checkbox>
+        </ListItem>
       </List>
     </div>
   );

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     minHeight: '100vh',
+    textAlign: 'center',
   },
   alert: {
     position: 'fixed',

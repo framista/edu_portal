@@ -29,7 +29,6 @@ export default function FormDialog(props) {
   const [answers, setAnswers] = React.useState([]);
 
   const handleChange = (prop) => (event) => {
-    console.log(event.target.value);
     setAnswers({ ...answers, [prop]: event.target.value });
   };
 
