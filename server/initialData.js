@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const studentData = [];
 
 mongoose
-  .connect(process.env.EDU_DB, {
+  .connect(process.env.EDU_DB_21, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -50,31 +50,6 @@ const dataCreate = () => {
 
 dataCreate();
 
-const dataTestCreate = async () => {
-  const data = [
-    {
-      taskNumber: 1,
-      question: 'Wymień rodzaje źródeł światła stosowanych dla oświetlaczy',
-    },
-    { taskNumber: 1, question: 'Wymień typy oświetlaczy' },
-    { taskNumber: 1, question: 'Omów metodę dopasowania wzorca' },
-    {
-      taskNumber: 1,
-      question: 'Omów efekt zmiany dystansu oświetlacza od obiektu',
-    },
-  ];
-  data.forEach(async ({ taskNumber, question }) => {
-    const test = new Test({ taskNumber, question });
-    try {
-      let response = await test.save();
-      console.log('saved');
-    } catch (err) {
-      console.log('err');
-    }
-  });
-};
-
-// dataTestCreate();
 const createMe = async () => {
   let student = new Student({
     firstname: 'Adrianna',
