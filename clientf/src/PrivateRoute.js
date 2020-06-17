@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const authTokens = localStorage.getItem('key-jwt-pwr');
+  const authTokens = localStorage.getItem('key-jwt-pwr-21');
   localStorage.setItem('selectedSite', window.location.href);
   return (
     <Route

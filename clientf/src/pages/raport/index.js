@@ -89,10 +89,10 @@ export default function Raport() {
     formData.append('file', selectedFile);
 
     try {
-      await axios.post('http://amalus.no-ip.org:5000/api/files', formData, {
+      await axios.post('http://amalus.no-ip.org:3002/api/files', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'x-auth-token': localStorage.getItem('key-jwt-pwr'),
+          'x-auth-token': localStorage.getItem('key-jwt-pwr-21'),
         },
         onUploadProgress: (progressEvent) => {
           setLoaded(

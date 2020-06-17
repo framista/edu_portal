@@ -2,3 +2,4 @@ node_modules/
 client1k/
 clientf/node_modules/
 mconfig.js
+server/data/

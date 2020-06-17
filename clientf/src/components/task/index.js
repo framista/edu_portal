@@ -160,7 +160,7 @@ export default function Task(props) {
           taskNumber={taskNumber}
           questions={questions}
           closeDialog={handleDialogClose}
-          timeQuestion={60} //sec
+          timeQuestion={1200} //sec
         />
       )}
     </div>

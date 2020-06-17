@@ -4,13 +4,13 @@ import './sidebar.css';
 
 export const Sidebar = () => {
   const [authTokens, setAuthTokens] = React.useState(
-    localStorage.getItem('key-jwt-pwr')
+    localStorage.getItem('key-jwt-pwr-21')
   );
 
   const handleLogout = () => {
-    localStorage.removeItem('key-jwt-pwr');
+    localStorage.removeItem('key-jwt-pwr-21');
     localStorage.removeItem('selectedSite');
-    setAuthTokens(localStorage.getItem('key-jwt-pwr'));
+    setAuthTokens(localStorage.getItem('key-jwt-pwr-21'));
   };
   return (
     <Menu>
@@ -34,9 +34,9 @@ export const Sidebar = () => {
         Ćwiczenie 4
       </a>
 
-      <a className="menu-item" href="/raport">
+      {/* <a className="menu-item" href="/raport">
         Sprawozdanie
-      </a>
+      </a> */}
 
       <a className="menu-item" href="/login" onClick={handleLogout}>
         {authTokens ? 'Wyloguj' : 'Zaloguj'}

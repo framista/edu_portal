@@ -1,8 +1,13 @@
 const { Test } = require('./models/test');
 const bcrypt = require('bcryptjs');
 const { Student } = require('./models/student');
-const _ = require('lodash');
+var fs = require('fs');
+var d3 = require('d3');
+var _ = require('lodash');
+
 const mongoose = require('mongoose');
+
+const studentData = [];
 
 mongoose
   .connect(process.env.EDU_DB, {
@@ -13,37 +18,72 @@ mongoose
   .then(() => console.log('Connected to MongoDB...'))
   .catch((err) => console.error('Could not connect to MongoDB', err));
 
-const dataCreate = async () => {
-  const test = new Test({
-    taskNumber: 1,
-    question: 'Wyjaśnij zasadę stałej objętości',
-  });
-  try {
-    let response = await test.save();
-    console.log('saved');
-  } catch (err) {
-    console.log('err');
-  }
-  const test1 = new Test({
-    taskNumber: 1,
-    question: 'Wyjaśnij czym jest kąt chwytu',
-  });
-  try {
-    let response = await test1.save();
-    console.log('saved');
-  } catch (err) {
-    console.log('err');
-  }
+const dataCreate = () => {
+  const file = 'data/listaSluchaczy_N01-21b_.csv';
 
+  fs.readFile(file, 'utf8', function (error, data) {
+    const dataRows = data.split('\n');
+    dataRows.shift();
+    dataRows.forEach(async (row) => {
+      const cells = row.split(';');
+      if (cells[0].length > 0) {
+        studentData.push({
+          index: cells[1].slice(4),
+          password: cells[2],
+          firstname: cells[3],
+          lastname: cells[4],
+        });
+        let student = new Student({
+          index: cells[1].slice(4),
+          password: cells[2],
+          firstname: cells[3],
+          lastname: cells[4],
+        });
+        const salt = await bcrypt.genSalt(10);
+        student.password = await bcrypt.hash(student.password, salt);
+        await student.save();
+      }
+    });
+    console.log(studentData);
+  });
+};
+
+dataCreate();
+
+const dataTestCreate = async () => {
+  const data = [
+    {
+      taskNumber: 1,
+      question: 'Wymień rodzaje źródeł światła stosowanych dla oświetlaczy',
+    },
+    { taskNumber: 1, question: 'Wymień typy oświetlaczy' },
+    { taskNumber: 1, question: 'Omów metodę dopasowania wzorca' },
+    {
+      taskNumber: 1,
+      question: 'Omów efekt zmiany dystansu oświetlacza od obiektu',
+    },
+  ];
+  data.forEach(async ({ taskNumber, question }) => {
+    const test = new Test({ taskNumber, question });
+    try {
+      let response = await test.save();
+      console.log('saved');
+    } catch (err) {
+      console.log('err');
+    }
+  });
+};
+
+// dataTestCreate();
+const createMe = async () => {
   let student = new Student({
     firstname: 'Adrianna',
-    lastname: 'Nowak',
+    lastname: 'Jabłońska',
     password: 'ada123',
-    index: '179080',
+    index: '229625',
   });
   const salt = await bcrypt.genSalt(10);
   student.password = await bcrypt.hash(student.password, salt);
   await student.save();
 };
-
-dataCreate();
+createMe();

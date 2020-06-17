@@ -43,10 +43,10 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const token = await axios.post(
-        'http://amalus.no-ip.org:5000/api/auth',
+        'http://amalus.no-ip.org:3002/api/auth',
         data
       );
-      localStorage.setItem('key-jwt-pwr', token.data);
+      localStorage.setItem('key-jwt-pwr-21', token.data);
       window.location.replace('/');
     } catch (err) {
       console.log(err);
